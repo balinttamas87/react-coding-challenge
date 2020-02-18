@@ -1,26 +1,10 @@
-import deepFreeze from 'deep-freeze';
+import { combineReducers } from "redux";
+import framesPage from "../containers/FramesPageContainer/reducer";
 
-import {
-    ACTION
-} from '../constants';
-
-const initialState = {};
-deepFreeze(initialState);
-
-const rootReducer = (
-    state = initialState,
-    action
-) => {
-    switch (action.type) {
-        case ACTION: return actOnAction(state, action);
-        default: return state;
-    }
-};
-
-const actOnAction = (state, action) => ({
-    ...state,
-    action
+const rootReducer = combineReducers({
+    framesPage
 });
 
 export default rootReducer;
+
   
