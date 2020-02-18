@@ -7,7 +7,7 @@ import './App.css';
 class App extends React.Component {
 
   async componentDidMount() {
-    
+
     try {
       const variant = await mockFetch('/variant');
 
