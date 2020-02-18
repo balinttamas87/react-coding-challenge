@@ -1,4 +1,5 @@
 import React from "react";
+import FramePage from '../../components/FramePage/FramePage';
 import { connect } from 'react-redux';
 import {
     fetchVariant,
@@ -11,7 +12,11 @@ class FramesPageContainer extends React.Component {
         this.props.fetchColumns();
     }
     render() {
-        return <div>FramesPageContainer</div>
+        return (
+            <div>
+                <FramePage />
+            </div>
+        )
     }
 }
 
