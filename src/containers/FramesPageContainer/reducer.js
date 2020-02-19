@@ -8,7 +8,9 @@ import {
 
     SELECT_FRAME,
 
-    COPY_FRAME
+    COPY_FRAME,
+
+    RESET_ERROR
 } from './constants';
 
 const initialState = {
@@ -29,6 +31,8 @@ const rootReducer = (
         case SELECT_FRAME: return selectFrame(state, action);
 
         case COPY_FRAME: return copyFrame(state, action);
+
+        case RESET_ERROR: return resetError(state, action);
 
         default: return state;
     }
@@ -116,7 +120,8 @@ const fetchFramesFailure = (state, { error }) => ({
     ...state,
     error,
     isFetchingFrames: false,
-    isFetchingFramesError: true
+    isFetchingFramesError: true,
+    statusCode: parseInt(error.message, 10)
 });
 
 const selectFrame = (state, { selectedFrame }) => ({
@@ -134,5 +139,10 @@ const copyFrame = (state) => {
     }
 };
 
+const resetError = (state) => ({
+    ...state,
+    isFetchingFramesError: false,
+    statusCode: null
+});
+
 export default rootReducer;
-  

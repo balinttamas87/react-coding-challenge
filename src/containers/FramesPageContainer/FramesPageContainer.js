@@ -1,10 +1,13 @@
 import React from "react";
 import FramePage from '../../components/FramePage/FramePage';
+import Dialog from '../../components/Dialog/Dialog';
 import { connect } from 'react-redux';
+
 import {
     fetchFrames,
     selectFrame,
-    copyFrame
+    copyFrame,
+    resetError
 } from './actions';
 
 class FramesPageContainer extends React.Component {
@@ -22,6 +25,11 @@ class FramesPageContainer extends React.Component {
                     copiedFrame={this.props.copiedFrame}
                     copyFrame={this.props.copyFrame}
                 />
+                <Dialog
+                    isError={this.props.isFetchingFramesError}
+                    resetError={this.props.resetError}
+                    statusCode={this.props.statusCode}
+                />
             </div>
         )
     }
@@ -34,7 +42,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = {
     fetchFrames,
     selectFrame,
-    copyFrame
+    copyFrame,
+    resetError
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FramesPageContainer);

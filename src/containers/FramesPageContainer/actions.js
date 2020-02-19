@@ -5,7 +5,9 @@ import {
 
     SELECT_FRAME,
 
-    COPY_FRAME
+    COPY_FRAME,
+    
+    RESET_ERROR
 } from './constants';
 
 import { mockFetch } from '../../../src/back-end/server';
@@ -34,7 +36,6 @@ export const fetchFrames = () => dispatch => {
     ]).then(res => dispatch(fetchFramesSuccess(res)),
             error => { console.log({error}); dispatch(fetchFramesFailure(error)); })
     .catch(error => {
-        console.log({errorInCatch: error});
         dispatch(fetchFramesFailure(error));
     });
 
@@ -47,4 +48,8 @@ export const selectFrame = (frameIndex) => ({
 
 export const copyFrame = () => ({
     type: COPY_FRAME
+});
+
+export const resetError = () => ({
+    type: RESET_ERROR
 });
