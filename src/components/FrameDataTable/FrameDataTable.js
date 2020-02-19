@@ -14,7 +14,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function SimpleTable({ tableData }) {
+export default function SimpleTable({ tableData, selected }) {
   const classes = useStyles();
   let rows;
   let tableCells;
@@ -22,10 +22,10 @@ export default function SimpleTable({ tableData }) {
   
   if (tableData) {
     rows = [
-        tableData.firstFrameData.row
+        tableData[selected].row
     ];
     
-    tableCells = tableData.firstFrameData.row.map((cellValue) => {
+    tableCells = tableData[selected].row.map((cellValue) => {
         const renderHTML = (rawHTML) => React.createElement("div", { dangerouslySetInnerHTML: { __html: rawHTML } });
 
         return (
@@ -35,7 +35,7 @@ export default function SimpleTable({ tableData }) {
         );
       });
 
-    tableHeaders = tableData.firstFrameData.row.map((cellValue) => {
+    tableHeaders = tableData[selected].row.map((cellValue) => {
         const renderHTML = (rawHTML) => React.createElement("div", { dangerouslySetInnerHTML: { __html: rawHTML } });
 
         return (

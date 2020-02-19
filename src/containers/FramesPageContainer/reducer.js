@@ -4,10 +4,14 @@ import { snakeToCamelCase } from '../../../src/util/snakeToCamelCase';
 import {
     FETCHING_FRAMES,
     FETCH_FRAMES_SUCCESS,
-    FETCH_FRAMES_FAILURE
+    FETCH_FRAMES_FAILURE,
+
+    SELECT_FRAME
 } from './constants';
 
-const initialState = {};
+const initialState = {
+    selectedFrame: 0
+};
 deepFreeze(initialState);
 
 const rootReducer = (
@@ -18,6 +22,9 @@ const rootReducer = (
         case FETCHING_FRAMES: return fetchingFrames(state, action);
         case FETCH_FRAMES_SUCCESS: return fetchFramesSuccess(state, action);
         case FETCH_FRAMES_FAILURE: return fetchFramesFailure(state, action);
+
+        case SELECT_FRAME: return selectFrame(state, action);
+
         default: return state;
     }
 };
@@ -53,7 +60,7 @@ const fetchFramesSuccess = (state, action) => {
     };
 
     const tableData = {
-        firstFrameData: {
+        0: {
             columns: getColumnsToDisplay(columns, frames.first.frameId),
             row: getColumnsToDisplay(columns, frames.first.frameId)
                 .map((column) => {
@@ -61,7 +68,7 @@ const fetchFramesSuccess = (state, action) => {
                 }),
             frameContent: frames.first.content
         },
-        firstInMiddleFrameData: {
+        1: {
             columns: getColumnsToDisplay(columns, frames.middle[0].frameId),
             row: getColumnsToDisplay(columns, frames.first.frameId)
             .map((column) => {
@@ -69,7 +76,7 @@ const fetchFramesSuccess = (state, action) => {
             }),
             frameContent: frames.middle[0].content
         },
-        secondInMiddleFrameData: {
+        2: {
             columns: getColumnsToDisplay(columns, frames.middle[1].frameId),
             row: getColumnsToDisplay(columns, frames.first.frameId)
             .map((column) => {
@@ -81,7 +88,7 @@ const fetchFramesSuccess = (state, action) => {
         //     columns,
         //     row: frames.middle[2].content
         // },
-        lastFrameData: {
+        4: {
             columns: getColumnsToDisplay(columns, frames.last.frameId),
             row: getColumnsToDisplay(columns, frames.first.frameId)
                 .map((column) => {
@@ -105,6 +112,11 @@ const fetchFramesFailure = (state, { error }) => ({
     error,
     isFetchingFrames: false,
     isFetchingFramesError: true
+});
+
+const selectFrame = (state, { selectedFrame }) => ({
+    ...state,
+    selectedFrame
 });
 
 export default rootReducer;

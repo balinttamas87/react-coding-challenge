@@ -2,7 +2,8 @@ import React from "react";
 import FramePage from '../../components/FramePage/FramePage';
 import { connect } from 'react-redux';
 import {
-    fetchFrames
+    fetchFrames,
+    selectFrame
 } from './actions';
 
 class FramesPageContainer extends React.Component {
@@ -13,7 +14,11 @@ class FramesPageContainer extends React.Component {
     render() {
         return (
             <div>
-                <FramePage tableData={this.props.tableData}/>
+                <FramePage
+                    tableData={this.props.tableData}
+                    selected={this.props.selectedFrame}
+                    selectFrame={this.props.selectFrame}
+                />
             </div>
         )
     }
@@ -24,7 +29,8 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-    fetchFrames
+    fetchFrames,
+    selectFrame
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FramesPageContainer);
