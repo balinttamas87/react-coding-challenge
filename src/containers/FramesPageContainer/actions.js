@@ -1,63 +1,37 @@
 import {
-    FETCHING_VARIANT,
-    FETCH_VARIANT_SUCCESS,
-    FETCH_VARIANT_FAILURE,
-
-    FETCHING_COLUMNS,
-    FETCH_COLUMNS_SUCCESS,
-    FETCH_COLUMNS_FAILURE
+    FETCHING_FRAMES,
+    FETCH_FRAMES_SUCCESS,
+    FETCH_FRAMES_FAILURE
 } from './constants';
 
 import { mockFetch } from '../../../src/back-end/server';
 
-const fetchingVariant = () => ({
-    type: FETCHING_VARIANT
+const fetchingFrames = () => ({
+    type: FETCHING_FRAMES
 });
 
-const fetchVariantSuccess = (payload) => ({
-    type: FETCH_VARIANT_SUCCESS,
+const fetchFramesSuccess = (payload) => ({
+    type: FETCH_FRAMES_SUCCESS,
     payload
 });
 
-const fetchVariantFailure = error => ({
-    type: FETCH_VARIANT_FAILURE,
+const fetchFramesFailure = error => ({
+    type: FETCH_FRAMES_FAILURE,
     error
 });
 
-export const fetchVariant = () => dispatch => {
+export const fetchFrames = () => dispatch => {
 
-    dispatch(fetchingVariant());
+    dispatch(fetchingFrames());
 
-    return mockFetch('/variant')
-        .then(data => dispatch(fetchVariantSuccess(data)))
-        .catch(error => {
-            dispatch(fetchVariantFailure(error));
-        });
+    return Promise.all([
+        mockFetch('/variant'),
+        mockFetch('/columns')
+    ]).then(res => dispatch(fetchFramesSuccess(res)),
+            error => { console.log({error}); dispatch(fetchFramesFailure(error)); })
+    .catch(error => {
+        console.log({errorInCatch: error});
+        dispatch(fetchFramesFailure(error));
+    });
 
-};
-
-const fetchingColumns = () => ({
-    type: FETCHING_COLUMNS
-});
-
-const fetchColumnsSuccess = (payload) => ({
-    type: FETCH_COLUMNS_SUCCESS,
-    payload
-});
-
-const fetchColumnsFailure = error => ({
-    type: FETCH_COLUMNS_FAILURE,
-    error
-});
-
-export const fetchColumns = () => dispatch => {
-
-    dispatch(fetchingColumns());
-
-    return mockFetch('/columns')
-        .then(data => dispatch(fetchColumnsSuccess(data)))
-        .catch(error => {
-            dispatch(fetchColumnsFailure(error));
-        });
-
-};
+}

@@ -2,19 +2,18 @@ import React from "react";
 import FramePage from '../../components/FramePage/FramePage';
 import { connect } from 'react-redux';
 import {
-    fetchVariant,
-    fetchColumns
+    fetchFrames
 } from './actions';
 
 class FramesPageContainer extends React.Component {
     componentDidMount() {
-        this.props.fetchVariant();
-        this.props.fetchColumns();
+        this.props.fetchFrames();
     }
+
     render() {
         return (
             <div>
-                <FramePage />
+                <FramePage tableData={this.props.tableData}/>
             </div>
         )
     }
@@ -25,8 +24,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = {
-    fetchVariant,
-    fetchColumns
+    fetchFrames
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(FramesPageContainer);
