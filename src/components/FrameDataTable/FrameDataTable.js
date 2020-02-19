@@ -14,7 +14,7 @@ const useStyles = makeStyles({
   },
 });
 
-export default function SimpleTable({ tableData, selected }) {
+export default function SimpleTable({ tableData, selected, copiedFrame }) {
   const classes = useStyles();
   let rows;
   let tableCells;
@@ -24,6 +24,13 @@ export default function SimpleTable({ tableData, selected }) {
     rows = [
         tableData[selected].row
     ];
+
+    if (copiedFrame) {
+        rows = [
+            ...rows,
+            copiedFrame.row
+        ]
+    }
     
     tableCells = tableData[selected].row.map((cellValue) => {
         const renderHTML = (rawHTML) => React.createElement("div", { dangerouslySetInnerHTML: { __html: rawHTML } });
@@ -57,7 +64,7 @@ export default function SimpleTable({ tableData, selected }) {
         </TableHead>
         <TableBody>
           {tableData && rows.map(row => (
-            <TableRow key={row.name}>
+            <TableRow key={row}>
                 { tableCells }
             </TableRow>
           ))}

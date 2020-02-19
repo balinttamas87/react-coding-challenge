@@ -6,11 +6,14 @@ import {
     FETCH_FRAMES_SUCCESS,
     FETCH_FRAMES_FAILURE,
 
-    SELECT_FRAME
+    SELECT_FRAME,
+
+    COPY_FRAME
 } from './constants';
 
 const initialState = {
-    selectedFrame: 0
+    selectedFrame: 0,
+    copiedFrame: null
 };
 deepFreeze(initialState);
 
@@ -24,6 +27,8 @@ const rootReducer = (
         case FETCH_FRAMES_FAILURE: return fetchFramesFailure(state, action);
 
         case SELECT_FRAME: return selectFrame(state, action);
+
+        case COPY_FRAME: return copyFrame(state, action);
 
         default: return state;
     }
@@ -116,8 +121,18 @@ const fetchFramesFailure = (state, { error }) => ({
 
 const selectFrame = (state, { selectedFrame }) => ({
     ...state,
-    selectedFrame
+    selectedFrame,
+    copiedFrame: null
 });
+
+const copyFrame = (state) => {
+    return {
+        ...state,
+        copiedFrame: {
+            ...state.tableData[state.selectedFrame]
+        }
+    }
+};
 
 export default rootReducer;
   

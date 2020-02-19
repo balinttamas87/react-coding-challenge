@@ -11,3 +11,5 @@ export const FETCH_FRAMES_SUCCESS = "framesPageContainer/FETCH_FRAMES_SUCCESS";
 export const FETCH_FRAMES_FAILURE = "framesPageContainer/FETCH_FRAMES_FAILURE";
 
 export const SELECT_FRAME = "framesPageContainer/SELECT_FRAME";
+
+export const COPY_FRAME = "framesPageContainer/COPY_FRAME";

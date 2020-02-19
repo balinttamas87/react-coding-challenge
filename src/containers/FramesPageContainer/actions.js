@@ -3,7 +3,9 @@ import {
     FETCH_FRAMES_SUCCESS,
     FETCH_FRAMES_FAILURE,
 
-    SELECT_FRAME
+    SELECT_FRAME,
+
+    COPY_FRAME
 } from './constants';
 
 import { mockFetch } from '../../../src/back-end/server';
@@ -41,4 +43,8 @@ export const fetchFrames = () => dispatch => {
 export const selectFrame = (frameIndex) => ({
     type: SELECT_FRAME,
     selectedFrame: frameIndex
+});
+
+export const copyFrame = () => ({
+    type: COPY_FRAME
 });
